@@ -1,2 +1,5 @@
-[servers]
-localhost
+[elkservers]
+localhost              ansible_connection=local
+
+[filebeatservers]
+localhost              ansible_connection=local

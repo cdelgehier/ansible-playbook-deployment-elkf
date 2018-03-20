@@ -1,0 +1,28 @@
+---
+
+- hosts: elkservers
+  remote_user: root
+  vars:
+    elk_git_repository: /tmp/test
+    elk_git_url: https://github.com/papebadiane/docker-elkf
+  roles:
+    - role: docker
+      docker_install_compose: true
+      docker_compose_version: 1.18.0
+      docker_apt_repository: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+  tasks:
+  # - name: Install Git
+  #   apt:
+  #     name: git
+  #     update_cache: yes
+
+  - name: Clone github repository
+    git:
+      repo: '{{ elk_git_url }}'
+      dest: '{{ elk_git_repository }}'
+      clone: yes
+
+  - name: change the working directory {{ elk_git_repository }} and run the container ELK
+    shell: docker-compose up -d elk
+    args:
+      chdir: '{{ elk_git_repository }}'
