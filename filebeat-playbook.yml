@@ -22,4 +22,4 @@
           fields:
             name_log: logs-oio
       filebeat_output_logstash_hosts:
-        - "localhost:5044"
+        - "192.168.1.175:5044"

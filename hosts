@@ -1,5 +1,5 @@
 [elkservers]
-localhost              ansible_connection=local
+192.168.1.175
 
 [filebeatservers]
 localhost              ansible_connection=local

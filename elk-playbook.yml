@@ -1,9 +1,10 @@
 ---
 
 - hosts: elkservers
-  remote_user: root
+  remote_user: ubuntu
+  become: true
   vars:
-    elk_git_repository: /tmp/test
+    elk_git_repository: /home/ubuntu/loganalyzer
     elk_git_url: https://github.com/papebadiane/docker-elkf
   roles:
     - role: docker
@@ -11,10 +12,8 @@
       docker_compose_version: 1.18.0
       docker_apt_repository: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
   tasks:
-  # - name: Install Git
-  #   apt:
-  #     name: git
-  #     update_cache: yes
+  - name: Increase the virtual memory
+    shell: sysctl -w vm.max_map_count=262144
 
   - name: Clone github repository
     git:
