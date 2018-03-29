@@ -1,7 +1,8 @@
 [elkservers]
-192.168.1.175
+185.75.141.10 ansible_port=9924
+
 [elkservers:vars]
-ansible_user=ubuntu
+ansible_user=openio
 
 
 [filebeatservers]

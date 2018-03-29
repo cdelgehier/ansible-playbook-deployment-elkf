@@ -6,6 +6,12 @@
       filebeat_prospectors:
         - input_type: log
           paths:
+            - /var/log/oio/sds/OPENIO/oioswift-*/oioswift-*.log
+          fields:
+            name_log: oio-swift
+
+        - input_type: log
+          paths:
             - /var/log/oio/sds/OPENIO/*/*.access
             - /var/log/oio/sds/OPENIO/rawx-0/rawx-0-httpd-access.log
           fields:
@@ -18,6 +24,6 @@
           fields:
             name_log: logs-oio
       filebeat_output_logstash_hosts:
-        - "192.168.1.175:5044"
+        - "185.75.141.10:5044"
       filebeat_ssl_dir: /etc/pki/logstash
       filebeat_ssl_certificate_file: ""
