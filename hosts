@@ -6,11 +6,16 @@ ansible_user=openio
 
 
 [filebeatservers]
-192.168.1.101
-192.168.1.103
-192.168.1.105
-
+sasopenio01
+sasopenio02
+sasopenio03
+ope_front04p-prod
+ope_front05p-prod
+ope_front06p-prod
+ope_front07p-prod
+ope_front08p-prod
+ope_front09p-prod
 [filebeatservers:vars]
-ansible_user=ubuntu
-ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-ansible_ssh_private_key_file=/home/pape/.ssh/id_rsa_vlad
+ansible_user=root
+#ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+#ansible_ssh_private_key_file=/home/pape/.ssh/id_rsa_vlad
