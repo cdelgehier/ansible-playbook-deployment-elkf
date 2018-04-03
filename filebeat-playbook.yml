@@ -1,56 +1,59 @@
 ---
 - hosts: filebeatservers
   become: yes
+  # environment:
+  #   http_proxy: http://172.16.140.4:3128
+  #   https_proxy: http://172.16.140.4:3128
   roles:
     - role: filebeat
       filebeat_prospectors:
         - type: log
           enabled: true
           paths:
-            - /var/log/oio/sds/OPENIO/oioswift-*/oioswift-*.log
+            - /var/log/oio/sds/SCALAIR/oioswift-*/oioswift-*.log
           fields:
             name_log: oio-swift
         - type: log
           enabled: true
           paths:
-            - /var/log/oio/sds/OPENIO/*/*.access
-            - /var/log/oio/sds/OPENIO/rawx-*/*-access.log
+            - /var/log/oio/sds/SCALAIR/*/*.access
+            - /var/log/oio/sds/SCALAIR/rawx-*/*-access.log
           fields:
             name_log: oio-access
         - type: log
           enabled: true
           paths:
-            - /var/log/oio/sds/OPENIO/meta*/*.log
-            - /var/log/oio/sds/OPENIO/conscience*/*.log
-            - /var/log/oio/sds/OPENIO/oioproxy-*/*.log
-            - /var/log/oio/sds/OPENIO/oio-event-agent*/*.log
+            - /var/log/oio/sds/SCALAIR/meta*/*.log
+            - /var/log/oio/sds/SCALAIR/conscience*/*.log
+            - /var/log/oio/sds/SCALAIR/oioproxy-*/*.log
+            - /var/log/oio/sds/SCALAIR/oio-event-agent*/*.log
           fields:
             name_log: oio-logs
         - type: log
           enabled: true
           paths:
-            - /var/log/oio/sds/OPENIO/oio-blob-indexer-*/*.log
+            - /var/log/oio/sds/SCALAIR/oio-blob-indexer-*/*.log
           fields:
             name_log: oio-blob-indexer
         - type: log
           enabled: true
           paths:
-            - /var/log/oio/sds/OPENIO/account-*/*.log
+            - /var/log/oio/sds/SCALAIR/account-*/*.log
           fields:
             name_log: oio-account
         - type: log
           enabled: true
           paths:
-            - /var/log/oio/sds/OPENIO/redis-*/*.log
+            - /var/log/oio/sds/SCALAIR/redis-*/*.log
           fields:
             name_log: oio-redis
         - type: log
           enabled: true
           paths:
-            - /var/log/oio/sds/OPENIO/*/*-errors.log
+            - /var/log/oio/sds/SCALAIR/*/*-errors.log
           fields:
             name_log: oio-errors
       filebeat_output_logstash_hosts:
-        - "185.75.141.10:5044"
+        - "172.16.139.250:5044"
       filebeat_ssl_dir: /etc/pki/logstash
       filebeat_ssl_certificate_file: ""
