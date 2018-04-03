@@ -4,25 +4,52 @@
   roles:
     - role: filebeat
       filebeat_prospectors:
-        - input_type: log
+        - type: log
+          enabled: true
           paths:
             - /var/log/oio/sds/OPENIO/oioswift-*/oioswift-*.log
           fields:
             name_log: oio-swift
-
-        - input_type: log
+        - type: log
+          enabled: true
           paths:
             - /var/log/oio/sds/OPENIO/*/*.access
-            - /var/log/oio/sds/OPENIO/rawx-0/rawx-0-httpd-access.log
+            - /var/log/oio/sds/OPENIO/rawx-*/*-access.log
           fields:
-            name_log: access-oio
-        - input_type: log
+            name_log: oio-access
+        - type: log
+          enabled: true
           paths:
             - /var/log/oio/sds/OPENIO/meta*/*.log
             - /var/log/oio/sds/OPENIO/conscience*/*.log
-            - /var/log/oio/sds/OPENIO/oio*/*.log
+            - /var/log/oio/sds/OPENIO/oioproxy-*/*.log
+            - /var/log/oio/sds/OPENIO/oio-event-agent*/*.log
           fields:
-            name_log: logs-oio
+            name_log: oio-logs
+        - type: log
+          enabled: true
+          paths:
+            - /var/log/oio/sds/OPENIO/oio-blob-indexer-*/*.log
+          fields:
+            name_log: oio-blob-indexer
+        - type: log
+          enabled: true
+          paths:
+            - /var/log/oio/sds/OPENIO/account-*/*.log
+          fields:
+            name_log: oio-account
+        - type: log
+          enabled: true
+          paths:
+            - /var/log/oio/sds/OPENIO/redis-*/*.log
+          fields:
+            name_log: oio-redis
+        - type: log
+          enabled: true
+          paths:
+            - /var/log/oio/sds/OPENIO/*/*-errors.log
+          fields:
+            name_log: oio-errors
       filebeat_output_logstash_hosts:
         - "185.75.141.10:5044"
       filebeat_ssl_dir: /etc/pki/logstash
