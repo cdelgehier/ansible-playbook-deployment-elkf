@@ -1,0 +1,49 @@
+---
+
+- hosts: elkservers
+  remote_user: root
+  #become: true
+  vars:
+    elk_repository: /root/loganalyser
+    elk_repo_version: v1.0.0
+  roles:
+    - role: ansible-role-docker
+      docker_install_compose: true
+      docker_compose_version: "1.18.0"
+      docker_apt_repository: "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+      docker_compose_path: /usr/bin/docker-compose
+  tasks:
+    - name: Increase the virtual memory
+      shell: sysctl -w vm.max_map_count=262144
+
+
+    - name: Download elk
+      unarchive:
+        src: "https://github.com/papebadiane/docker-elkf/archive/{{ elk_repo_version}}.tar.gz"
+        dest: "{{ elk_repository }}"
+        remote_src: true
+
+
+  # - name: change the working directory {{ elk_git_repository }} and run the container ELK
+  #   shell: docker-compose up --build elk
+  #   args:
+  #     chdir: '{{ elk_git_repository }}'
+
+
+- hosts: filebeatservers
+  become: true
+  vars:
+    elkf_admin_group: elkservers
+    elkf_admin_iface: eth0
+  roles:
+    - role: ansible-role-filebeat
+      filebeat_prospectors:
+        - type: log
+          enabled: true
+          paths:
+            - "/var/log/oio/sds/{{ openio_namespace }}/oioswift-*/oioswift-*.log"
+          fields:
+            name_log: oio-swift
+      filebeat_output_logstash_hosts:
+        - "{{ hostvars[groups[elkf_admin_group][0]]['ansible_' + elkf_admin_iface]['ipv4']['address']}}:5044"
+...
