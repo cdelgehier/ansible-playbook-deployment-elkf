@@ -1,11 +1,11 @@
 ---
 
 - hosts: elkservers
-  remote_user: root
-  #become: true
+  remote_user: ubuntu
+  become: true
   vars:
-    elk_repository: /root/loganalyser
-    elk_repo_version: v1.0.0
+    elk_repository: ~/loganalyzer
+    elk_repo_version: 0.1.0
   roles:
     - role: ansible-role-docker
       docker_install_compose: true
@@ -27,14 +27,16 @@
   # - name: change the working directory {{ elk_git_repository }} and run the container ELK
   #   shell: docker-compose up --build elk
   #   args:
-  #     chdir: '{{ elk_git_repository }}'
+  #     chdir: '{{ elk_repository }}'
 
 
 - hosts: filebeatservers
+  remote_user: ubuntu
   become: true
   vars:
     elkf_admin_group: elkservers
     elkf_admin_iface: eth0
+    openio_namespace: OPENIO
   roles:
     - role: ansible-role-filebeat
       filebeat_prospectors:
@@ -45,5 +47,5 @@
           fields:
             name_log: oio-swift
       filebeat_output_logstash_hosts:
-        - "{{ hostvars[groups[elkf_admin_group][0]]['ansible_' + elkf_admin_iface]['ipv4']['address']}}:5044"
+        - "{{ hostvars[groups[elkf_admin_group][0]]['ansible_default_ipv4']['address']}}:5044"
 ...
