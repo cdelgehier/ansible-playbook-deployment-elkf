@@ -7,7 +7,7 @@
     elk_git_repository: /root/loganalyser
     elk_git_url: https://github.com/papebadiane/docker-elkf
   roles:
-    - role: docker
+    - geerlingguy.docker
       docker_install_compose: true
       docker_compose_version: 1.18.0
       docker_apt_repository: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
