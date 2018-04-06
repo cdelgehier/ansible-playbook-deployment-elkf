@@ -1,9 +1,9 @@
 ---
 - hosts: filebeatservers
   become: yes
-  # environment:
-  #   http_proxy: http://172.16.140.4:3128
-  #   https_proxy: http://172.16.140.4:3128
+  environment:
+    http_proxy: http://172.16.140.4:3128
+    https_proxy: http://172.16.140.4:3128
   roles:
     - role: filebeat
       filebeat_prospectors:
@@ -29,31 +29,31 @@
             - /var/log/oio/sds/SCALAIR/oio-event-agent*/*.log
           fields:
             name_log: oio-logs
-        - type: log
-          enabled: true
-          paths:
-            - /var/log/oio/sds/SCALAIR/oio-blob-indexer-*/*.log
-          fields:
-            name_log: oio-blob-indexer
-        - type: log
-          enabled: true
-          paths:
-            - /var/log/oio/sds/SCALAIR/account-*/*.log
-          fields:
-            name_log: oio-account
-        - type: log
-          enabled: true
-          paths:
-            - /var/log/oio/sds/SCALAIR/redis-*/*.log
-          fields:
-            name_log: oio-redis
-        - type: log
-          enabled: true
-          paths:
-            - /var/log/oio/sds/SCALAIR/*/*-errors.log
-          fields:
-            name_log: oio-errors
+        # - type: log
+        #   enabled: true
+        #   paths:
+        #     - /var/log/oio/sds/SCALAIR/oio-blob-indexer-*/*.log
+        #   fields:
+        #     name_log: oio-blob-indexer
+        # - type: log
+        #   enabled: true
+        #   paths:
+        #     - /var/log/oio/sds/SCALAIR/account-*/*.log
+        #   fields:
+        #     name_log: oio-account
+        # - type: log
+        #   enabled: true
+        #   paths:
+        #     - /var/log/oio/sds/SCALAIR/redis-*/*.log
+        #   fields:
+        #     name_log: oio-redis
+        # - type: log
+        #   enabled: true
+        #   paths:
+        #     - /var/log/oio/sds/SCALAIR/*/*-errors.log
+        #   fields:
+        #     name_log: oio-errors
       filebeat_output_logstash_hosts:
-        - "172.16.139.250:5044"
+        - "163.172.72.26:5044"
       filebeat_ssl_dir: /etc/pki/logstash
       filebeat_ssl_certificate_file: ""

@@ -1,10 +1,10 @@
 ---
 
 - hosts: elkservers
-  remote_user: openio
-  become: true
+  remote_user: root
+  #become: true
   vars:
-    elk_git_repository: /home/openio/loganalyzer
+    elk_git_repository: /root/loganalyser
     elk_git_url: https://github.com/papebadiane/docker-elkf
   roles:
     - role: docker
