@@ -28,8 +28,6 @@
   #   shell: docker-compose up --build elk
   #   args:
   #     chdir: '{{ elk_repository }}'
-
-
 - hosts: filebeatservers
   remote_user: ubuntu
   become: true
