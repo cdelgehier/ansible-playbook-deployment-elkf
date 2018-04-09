@@ -27,10 +27,10 @@
         dest: "{{ elk_install_path }}"
         remote_src: true
 
-    # - name: "change the working directory {{ elk_install_path }}/docker-elkf-{{ elk_repo_version }} and run the container ELK"
-    #   shell: docker-compose up --build elk -d
-    #   args:
-    #     chdir: "{{ elk_install_path }}/docker-elkf-{{ elk_repo_version }}"
+    - name: "change the working directory {{ elk_install_path }}/docker-elkf-{{ elk_repo_version }} and run the container ELK"
+      shell: docker-compose up --build elk -d
+      args:
+        chdir: "{{ elk_install_path }}/docker-elkf-{{ elk_repo_version }}"
 - hosts: filebeatservers
   remote_user: root
   vars:
