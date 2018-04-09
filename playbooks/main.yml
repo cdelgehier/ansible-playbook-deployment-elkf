@@ -24,10 +24,10 @@
         remote_src: true
 
 
-  # - name: change the working directory {{ elk_git_repository }} and run the container ELK
-  #   shell: docker-compose up --build elk
-  #   args:
-  #     chdir: '{{ elk_repository }}'
+  - name: change the working directory {{ elk_git_repository }} and run the container ELK
+    shell: docker-compose up --build elk
+    args:
+      chdir: '{{ elk_repository }}'
 - hosts: filebeatservers
   remote_user: ubuntu
   become: true
