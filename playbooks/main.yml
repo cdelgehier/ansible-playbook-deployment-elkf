@@ -6,6 +6,8 @@
   vars:
     elk_repository: ~/loganalyzer
     elk_repo_version: 0.1.0
+  environment:
+    ES_JAVA_OPTS: "-Xmx1g -Xms2g"
   roles:
     - role: ansible-role-docker
       docker_install_compose: true
