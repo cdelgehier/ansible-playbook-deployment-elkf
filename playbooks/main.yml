@@ -3,7 +3,7 @@
 - hosts: elkservers
   become: true
   vars:
-    elk_install_path: ~/loganalyzer
+    elk_install_path: /var/lib/loganalyzer
     elk_repo_version: 0.1.0
   environment:
     ES_JAVA_OPTS: "-Xmx1g -Xms2g"
