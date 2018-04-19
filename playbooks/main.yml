@@ -3,16 +3,20 @@
 - hosts: elkservers
   become: true
   environment:
-    ES_JAVA_OPTS: "-Xmx1g -Xms2g"
+    ES_JAVA_OPTS: "-Xmx1g -Xms1g"
   vars:
       elk_install_path: "/var/lib/loganalyzer"
       elk_repo_version: "0.1.0"
   roles:
+    - role: ansible-role-java
+      when: "ansible_os_family == 'RedHat'"
+      java_packages:
+        - java-1.8.0-openjdk
     - role: ansible-role-docker
       docker_install_compose: true
       docker_compose_version: "1.18.0"
       docker_apt_repository: "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
-      docker_compose_path: "/usr/local/bin/docker-compose"
+      docker_compose_path: "/usr/bin/docker-compose"
   tasks:
     - name: Increase the virtual memory
       shell: sysctl -w vm.max_map_count=262144
@@ -42,61 +46,61 @@
         kibana_visualization_path: "{{ elk_install_path }}/docker-elkf-{{ elk_repo_version }}/elk/kibana/dashboard/visualization.json"
         kibana_server_ip: "{{ hostvars[groups[kibana_server_group][0]]['ansible_'+ kibana_interface]['ipv4']['address'] }}"
 
-- hosts: filebeatservers
-  become: true
-  vars:
-    elkf_admin_group: elkservers
-    elkf_admin_iface: lo
-    openio_namespace: OPENIO
-  roles:
-    - role: ansible-role-filebeat
-      filebeat_prospectors:
-        - type: log
-          enabled: true
-          paths:
-            - "/var/log/oio/sds/{{ openio_namespace }}/oioswift-*/oioswift-*.log"
-          fields:
-            name_log: oio-swift
-        - type: log
-          enabled: true
-          paths:
-            - "/var/log/oio/sds/{{ openio_namespace }}/*/*.access"
-            - "/var/log/oio/sds/{{ openio_namespace }}/rawx-*/*-access.log"
-          fields:
-            name_log: oio-access
-        - type: log
-          enabled: true
-          paths:
-            - "/var/log/oio/sds/{{ openio_namespace }}/meta*/*.log"
-            - "/var/log/oio/sds/{{ openio_namespace }}/conscience*/*.log"
-            - "/var/log/oio/sds/{{ openio_namespace }}/oioproxy-*/*.log"
-            - "/var/log/oio/sds/{{ openio_namespace }}/oio-event-agent*/*.log"
-          fields:
-            name_log: oio-logs
-        - type: log
-          enabled: true
-          paths:
-            - "/var/log/oio/sds/{{ openio_namespace }}/oio-blob-indexer-*/*.log"
-          fields:
-            name_log: oio-blob-indexer
-        - type: log
-          enabled: true
-          paths:
-            - "/var/log/oio/sds/{{ openio_namespace }}/account-*/*.log"
-          fields:
-            name_log: oio-account
-        - type: log
-          enabled: true
-          paths:
-            - "/var/log/oio/sds/{{ openio_namespace }}/redis-*/*.log"
-          fields:
-            name_log: oio-redis
-        - type: log
-          enabled: true
-          paths:
-            - "/var/log/oio/sds/{{ openio_namespace }}/*/*-errors.log"
-          fields:
-            name_log: oio-errors
-      filebeat_output_logstash_hosts:
-        - "{{ hostvars[groups[elkf_admin_group][0]]['ansible_' + elkf_admin_iface]['ipv4']['address']}}:5044"
+# - hosts: filebeatservers
+#   become: true
+#   vars:
+#     elkf_admin_group: elkservers
+#     elkf_admin_iface: lo
+#     openio_namespace: OPENIO
+#   roles:
+#     - role: ansible-role-filebeat
+#       filebeat_prospectors:
+#         - type: log
+#           enabled: true
+#           paths:
+#             - "/var/log/oio/sds/{{ openio_namespace }}/oioswift-*/oioswift-*.log"
+#           fields:
+#             name_log: oio-swift
+#         - type: log
+#           enabled: true
+#           paths:
+#             - "/var/log/oio/sds/{{ openio_namespace }}/*/*.access"
+#             - "/var/log/oio/sds/{{ openio_namespace }}/rawx-*/*-access.log"
+#           fields:
+#             name_log: oio-access
+#         - type: log
+#           enabled: true
+#           paths:
+#             - "/var/log/oio/sds/{{ openio_namespace }}/meta*/*.log"
+#             - "/var/log/oio/sds/{{ openio_namespace }}/conscience*/*.log"
+#             - "/var/log/oio/sds/{{ openio_namespace }}/oioproxy-*/*.log"
+#             - "/var/log/oio/sds/{{ openio_namespace }}/oio-event-agent*/*.log"
+#           fields:
+#             name_log: oio-logs
+#         - type: log
+#           enabled: true
+#           paths:
+#             - "/var/log/oio/sds/{{ openio_namespace }}/oio-blob-indexer-*/*.log"
+#           fields:
+#             name_log: oio-blob-indexer
+#         - type: log
+#           enabled: true
+#           paths:
+#             - "/var/log/oio/sds/{{ openio_namespace }}/account-*/*.log"
+#           fields:
+#             name_log: oio-account
+#         - type: log
+#           enabled: true
+#           paths:
+#             - "/var/log/oio/sds/{{ openio_namespace }}/redis-*/*.log"
+#           fields:
+#             name_log: oio-redis
+#         - type: log
+#           enabled: true
+#           paths:
+#             - "/var/log/oio/sds/{{ openio_namespace }}/*/*-errors.log"
+#           fields:
+#             name_log: oio-errors
+#       filebeat_output_logstash_hosts:
+#         - "{{ hostvars[groups[elkf_admin_group][0]]['ansible_' + elkf_admin_iface]['ipv4']['address']}}:5044"
 ...
