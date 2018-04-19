@@ -2,7 +2,7 @@ Ansible playbook for container ELK and Filebeat
 ------
 ## Description
 
-This playbook install run docker container ELK from repository [docker_elkf](https://github.com/papebadiane/ansible-docker-elkf.git) on an admin node, install and run Filebeat on other Nodes
+This playbook install run docker container ELK from repository [docker_elkf](https://github.com/papebadiane/docker-elkf) on an admin node, install and run Filebeat on other Nodes
 
 
 ## Prerequisites:
@@ -35,7 +35,7 @@ sudo yum install -y ansible
 You will need to  install the roles dependencies
 
 ```
-export OPENIO_LOGANALYZER_RELEASE="0.1.1"
+export OPENIO_LOGANALYZER_RELEASE="0.1.2"
 mkdir -p ~/openio-loganalyzer && cd ~/openio-loganalyzer
 curl -sL "https://github.com/papebadiane/ansible-docker-elkf/archive/$OPENIO_LOGANALYZER_RELEASE.tar.gz" | tar xz --strip-components=1
 ansible-galaxy install -r requirements.yml --force
