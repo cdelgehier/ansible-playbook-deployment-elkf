@@ -35,7 +35,7 @@ sudo yum install -y ansible
 You will need to  install the roles dependencies
 
 ```
-export OPENIO_LOGANALYZER_RELEASE="0.1.2"
+export OPENIO_LOGANALYZER_RELEASE="0.1.3"
 mkdir -p ~/openio-loganalyzer && cd ~/openio-loganalyzer
 curl -sL "https://github.com/papebadiane/ansible-docker-elkf/archive/$OPENIO_LOGANALYZER_RELEASE.tar.gz" | tar xz --strip-components=1
 ansible-galaxy install -r requirements.yml --force
@@ -66,6 +66,8 @@ Below you will find a description of the variables of the playbook
 | filebeat_prospectors               | List of filebeat prospectors                                 | List        |
 | **elkf_admin_group**               | name of group for elk cluster                                | String      |
 | **elkf_admin_iface**               | input interface of admin's host                              | String      |
+| **kibana_server_group**            | name of group of kibana                                      | String      |
+| **kibana_interface**               | input interface of kibana server                             | String      |
 
 Before running the playbook, make sure that you have checked that all the fields marked in bold are correct.
 

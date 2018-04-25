@@ -3,13 +3,13 @@
 - hosts: elkservers
   become: true
   environment:
-    ES_JAVA_OPTS: "-Xmx1g -Xms1g"
+    ES_JAVA_OPTS: "-Xmx512m -Xms512m"
   vars:
       elk_install_path: "/var/lib/loganalyzer"
-      elk_repo_version: "0.1.0"
+      elk_repo_version: "0.1.1"
   roles:
     - role: ansible-role-java
-  
+
     - role: ansible-role-docker
       docker_install_compose: true
       docker_compose_version: "1.18.0"
@@ -56,47 +56,47 @@
         - type: log
           enabled: true
           paths:
-            - "/var/log/oio/sds/{{ openio_namespace }}/oioswift-*/oioswift-*.log"
+            - "/var/log/oio/sds/{{ openio_namespace }}/oioswift-*/oioswift-*.log*"
           fields:
             name_log: oio-swift
         - type: log
           enabled: true
           paths:
-            - "/var/log/oio/sds/{{ openio_namespace }}/*/*.access"
-            - "/var/log/oio/sds/{{ openio_namespace }}/rawx-*/*-access.log"
+            - "/var/log/oio/sds/{{ openio_namespace }}/*/*.access*"
+            - "/var/log/oio/sds/{{ openio_namespace }}/rawx-*/*-access.log*"
           fields:
             name_log: oio-access
         - type: log
           enabled: true
           paths:
-            - "/var/log/oio/sds/{{ openio_namespace }}/meta*/*.log"
-            - "/var/log/oio/sds/{{ openio_namespace }}/conscience*/*.log"
-            - "/var/log/oio/sds/{{ openio_namespace }}/oioproxy-*/*.log"
-            - "/var/log/oio/sds/{{ openio_namespace }}/oio-event-agent*/*.log"
+            - "/var/log/oio/sds/{{ openio_namespace }}/meta*/*.log*"
+            - "/var/log/oio/sds/{{ openio_namespace }}/conscience*/*.log*"
+            - "/var/log/oio/sds/{{ openio_namespace }}/oioproxy-*/*.log*"
+            - "/var/log/oio/sds/{{ openio_namespace }}/oio-event-agent*/*.log*"
           fields:
             name_log: oio-logs
         - type: log
           enabled: true
           paths:
-            - "/var/log/oio/sds/{{ openio_namespace }}/oio-blob-indexer-*/*.log"
+            - "/var/log/oio/sds/{{ openio_namespace }}/oio-blob-indexer-*/*.log*"
           fields:
             name_log: oio-blob-indexer
         - type: log
           enabled: true
           paths:
-            - "/var/log/oio/sds/{{ openio_namespace }}/account-*/*.log"
+            - "/var/log/oio/sds/{{ openio_namespace }}/account-*/*.log*"
           fields:
             name_log: oio-account
         - type: log
           enabled: true
           paths:
-            - "/var/log/oio/sds/{{ openio_namespace }}/redis-*/*.log"
+            - "/var/log/oio/sds/{{ openio_namespace }}/redis-*/*.log*"
           fields:
             name_log: oio-redis
         - type: log
           enabled: true
           paths:
-            - "/var/log/oio/sds/{{ openio_namespace }}/*/*-errors.log"
+            - "/var/log/oio/sds/{{ openio_namespace }}/*/*-errors.log*"
           fields:
             name_log: oio-errors
       filebeat_output_logstash_hosts:
