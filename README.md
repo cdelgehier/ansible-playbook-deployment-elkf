@@ -35,7 +35,7 @@ sudo yum install -y ansible
 You will need to  install the roles dependencies
 
 ```
-export OPENIO_LOGANALYZER_RELEASE="0.1.3"
+export OPENIO_LOGANALYZER_RELEASE="0.1.4"
 mkdir -p ~/openio-loganalyzer && cd ~/openio-loganalyzer
 curl -sL "https://github.com/papebadiane/ansible-docker-elkf/archive/$OPENIO_LOGANALYZER_RELEASE.tar.gz" | tar xz --strip-components=1
 ansible-galaxy install -r requirements.yml --force
