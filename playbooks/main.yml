@@ -7,7 +7,7 @@
     ES_CURATOR_DAYS: 10
   vars:
       elk_install_path: "/var/lib/loganalyzer"
-      elk_repo_version: "0.1.1"
+      elk_repo_version: "0.1.2"
   roles:
     - role: ansible-role-java
 
