@@ -80,6 +80,7 @@ The startup scripts for Elasticsearch can append extra JVM options from the valu
 |      Environment Variable          |               Description                                    |
 |------------------------------------|--------------------------------------------------------------|
 |   ES_JAVA_OPTS                     | memory allocated to the Heap size of Elasticsearch container |
+|   ES_CURATOR_DAYS                  | Number of days during which elastic's data are stored        |
 
 ## Run
 

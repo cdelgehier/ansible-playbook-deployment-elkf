@@ -4,6 +4,7 @@
   become: true
   environment:
     ES_JAVA_OPTS: "-Xmx512m -Xms512m"
+    ES_CURATOR_DAYS: 10
   vars:
       elk_install_path: "/var/lib/loganalyzer"
       elk_repo_version: "0.1.1"
