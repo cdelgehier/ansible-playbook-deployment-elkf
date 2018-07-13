@@ -1,0 +1,25 @@
+---
+- name: Elasticsearch with custom configuration
+  hosts: elkservers
+  roles:
+    - { role: elasticsearch,
+    es_config: {
+        node.name: "node1",
+        cluster.name: "custom-cluster",
+        discovery.zen.ping.unicast.hosts: "localhost:9301",
+        http.port: 9201,
+        transport.tcp.port: 9301,
+        node.data: false,
+        node.master: true,
+        bootstrap.memory_lock: true,
+        }
+    }
+  vars:
+    es_scripts: false
+    es_templates: true
+    es_version_lock: false
+    es_heap_size: 1g
+    es_api_port: 9201
+    es_log_dir: /var/log/Elasticsearch
+    es_data_dirs:
+    # es_instance_name:
