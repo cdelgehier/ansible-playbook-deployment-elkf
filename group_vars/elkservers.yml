@@ -1,0 +1,17 @@
+---
+elk_cluster_name: "elk-cluster"
+elk_node_name: "node-1"
+elasticsearch_heap_size: 2g
+logstash_heap_size: 1g
+es_version: "6.2.4"
+
+ # Docker container Variable
+install_docker_elk: false
+docker_elk_version: "0.1.4"
+docker_repo_path: "/var/lib/loganalyzer"
+
+# Bar metal Variable
+install_bar_metal_elk: true
+elasticsearch_data_dirs: "/var/lib/elasticsearch"
+
+...

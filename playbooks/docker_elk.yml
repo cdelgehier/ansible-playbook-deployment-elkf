@@ -3,12 +3,12 @@
 - hosts: elkservers
   become: true
   environment:
-    ES_HEAP_SIZE: {{ es_heap_size }}
-    LS_HEAP_SIZE: {{ ls_heap_size }}
-    ES_CLUSTER_NAME: {{ es_cluster_name }}
+    ES_HEAP_SIZE: "{{ elasticsearch_heap_size }}"
+    LS_HEAP_SIZE: "{{ logstash_heap_size }}"
+    ES_CLUSTER_NAME: "{{ elk_cluster_name }}"
   vars:
-      elk_install_path: {{ docker_repo_path }}
-      elk_repo_version: {{ docker_repo_path }}
+      elk_install_path: "{{ docker_repo_path }}"
+      elk_repo_version: "{{ docker_elk_version }}"
   roles:
     - role: ansible-role-java
 
@@ -35,15 +35,5 @@
       shell: docker-compose up -d --build elk
       args:
         chdir: "{{ elk_install_path }}/docker-elkf-{{ elk_repo_version }}"
-
-    - name: Load kibana dashboard and visualization
-      include_role:
-        name: ansible-role-kibana-import-dashboard-and-visualization
-      vars:
-        kibana_server_group: elkservers
-        kibana_interface: lo
-        kibana_dashboard_path: "{{ elk_install_path }}/docker-elkf-{{ elk_repo_version }}/elk/kibana/dashboard/dashboard.json"
-        kibana_visualization_path: "{{ elk_install_path }}/docker-elkf-{{ elk_repo_version }}/elk/kibana/dashboard/visualization.json"
-        kibana_server_ip: "{{ hostvars[groups[kibana_server_group][0]]['ansible_'+ kibana_interface]['ipv4']['address'] }}"
 
 ...

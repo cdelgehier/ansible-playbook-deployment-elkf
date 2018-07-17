@@ -1,0 +1,33 @@
+# This is the internal user database
+# The hash value is a bcrypt hash and can be generated with plugin/tools/hash.sh
+
+
+openio:
+  readonly: true
+  hash: $2y$12$XMnqMpDkTJeIoG7duwCCPO4oX.KyH.85BXM3J6po8radA18uD9y0G
+  roles:
+    - openio
+
+#password is: curator
+curator:
+  readonly: true
+  hash: $2y$12$vCjmttIIjhLt8aNxSgG8iul0cm4WVU2T6MD/bbmrATtjHv5kYTUii
+  roles:
+    - curator
+
+admin:
+  readonly: true
+  hash: $2y$12$uyYK1LqVAISibepeS4Qn6OK.fo8mJIylw4UYOtqVCUUaNX9EM.aHa
+  roles:
+    - admin
+
+#password is: logstash
+logstash:
+  hash: $2a$12$u1ShR4l4uBS3Uv59Pa2y5.1uQuZBrZtmNfqB3iM/.jL0XoV9sghS2
+  roles:
+    - logstash
+
+#password is: kibanaserver
+kibanaserver:
+  readonly: true
+  hash: $2a$12$4AcgAt3xwOWadA5s5blL6ev39OXDNhmOesEoo33eZtrq2N0YrU3H.

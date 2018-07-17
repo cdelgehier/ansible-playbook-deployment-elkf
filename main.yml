@@ -1,14 +1,13 @@
 ---
-
-- name : container elk
-  import_playbooks: playbooks/docker_elk.yml
+- name: container elk
+  import_playbook: playbooks/docker_elk.yml
   when: install_docker_elk
 
 - name: elk bar metal
-  import_playbooks: playbooks/elk.yml
+  import_playbook: playbooks/elk.yml
   when: install_bar_metal_elk
 
-- name: filebeat
-  import_playbooks: playbooks/filebeat.yml
 
+# - name: filebeat
+#   import_playbook: playbooks/filebeat.yml
 ...
