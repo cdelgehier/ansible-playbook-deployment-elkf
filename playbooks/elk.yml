@@ -56,6 +56,10 @@
       become: yes
       service: name={{instance_init_script | basename}} state=restarted enabled=yes
 
+    - name: Wait for Elasticsearch startup
+      wait_for:
+      delay: 10
+
     - name: set permissions of sgadmin install file
       file:
         path: "{{conf_dir}}/bin/sgadmin_install.sh"
