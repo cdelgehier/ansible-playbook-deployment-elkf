@@ -14,4 +14,9 @@ docker_repo_path: "/var/lib/loganalyzer"
 install_bar_metal_elk: true
 elasticsearch_data_dirs: "/var/lib/elasticsearch"
 
+kibana_version: "6.2.4"
+kibana_server_port: 5601
+kibana_server_host: "0.0.0.0"
+kibana_elasticsearch_url: "http://localhost:9200"
+
 ...

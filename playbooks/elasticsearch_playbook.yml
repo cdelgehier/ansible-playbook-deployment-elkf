@@ -58,7 +58,8 @@
 
     - name: Wait for Elasticsearch startup
       wait_for:
-      delay: 10
+      delay: 1
+      timeout: 5
 
     - name: set permissions of sgadmin install file
       file:
