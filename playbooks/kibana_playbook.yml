@@ -1,7 +1,8 @@
 ---
-- name: Elasticsearch with custom configuration"
+- name: Kibana with custom configuration"
   hosts: elkservers
   roles:
     - role: ansible-role-kibana
+
 
 ...

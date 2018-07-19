@@ -11,4 +11,6 @@
   version: 6.3.1
 - src: https://github.com/papebadiane/ansible-role-kibana
   version: master
+- src: https://github.com/papebadiane/ansible-role-logstash
+  version: master
 ...

@@ -19,4 +19,7 @@ kibana_server_port: 5601
 kibana_server_host: "0.0.0.0"
 kibana_elasticsearch_url: "http://localhost:9200"
 
+logstash_version: "6.2.4"
+logstash_enabled_on_boot: false
+
 ...
