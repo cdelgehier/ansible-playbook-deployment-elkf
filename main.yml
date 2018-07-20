@@ -1,21 +1,21 @@
 ---
-- name: container elk
-  import_playbook: playbooks/docker_elk.yml
-  when: install_docker_elk
+# - name: container elk
+#   import_playbook: playbooks/docker_elk.yml
+#   when: install_docker_elk
+#
+# - name: Install Elasticsearch
+#   import_playbook: playbooks/elasticsearch_playbook.yml
+#   when: install_bar_metal_elk
+#
+# - name: Install Logstash
+#   import_playbook: playbooks/logstash_playbook.yml
+#   when: install_bar_metal_elk
 
-- name: Install Elasticsearch
-  import_playbook: playbooks/elasticsearch_playbook.yml
-  when: install_bar_metal_elk
-
-- name: Install Logstash
-  import_playbook: playbooks/logstash_playbook.yml
-  when: install_bar_metal_elk
-
-- name: Install Kibana
-  import_playbook: playbooks/kibana_playbook.yml
-  when: install_bar_metal_elk
+# - name: Install Kibana
+#   import_playbook: playbooks/kibana_playbook.yml
+#   when: install_bar_metal_elk
 
 
-# - name: filebeat
-#   import_playbook: playbooks/filebeat.yml
+- name: filebeat
+  import_playbook: playbooks/filebeat_playbook.yml
 ...

@@ -1,25 +1,37 @@
 ---
 elk_cluster_name: "elk-cluster"
 elk_node_name: "node-1"
-elasticsearch_heap_size: 2g
+elasticsearch_heap_size: 1g
 logstash_heap_size: 1g
 es_version: "6.2.4"
 
- # Docker container Variable
+#-------------------------------------- Docker container Variable------------------------------------------
 install_docker_elk: false
 docker_elk_version: "0.1.4"
 docker_repo_path: "/var/lib/loganalyzer"
 
-# Bar metal Variable
+# -------------------------------Bar metal Variable-----------------------------------------------------------
 install_bar_metal_elk: true
+## Elastic vars
 elasticsearch_data_dirs: "/var/lib/elasticsearch"
 
+## kibana vars
 kibana_version: "6.2.4"
 kibana_server_port: 5601
 kibana_server_host: "0.0.0.0"
 kibana_elasticsearch_url: "http://localhost:9200"
+kibana_config:
+  elasticsearch.username: "kibanaserver"
+  elasticsearch.password: "kibanaserver"
 
+## Logstash vars
+kibana_plugins:
+  - plugin: https://search.maven.org/remotecontent?filepath=com/floragunn/search-guard-kibana-plugin/6.2.4-13/search-guard-kibana-plugin-6.2.4-13.zip
 logstash_version: "6.2.4"
 logstash_enabled_on_boot: false
+
+
+
+## Kibana Dashboard and visualizations
 
 ...
