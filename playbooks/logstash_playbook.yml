@@ -3,6 +3,8 @@
   hosts: elkservers
   roles:
     - role: ansible-role-logstash
-
+  vars:
+    logstash_version: "{{es_version}}"
+    logstash_enabled_on_boot: false
 
 ...

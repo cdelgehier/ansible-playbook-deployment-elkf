@@ -27,7 +27,7 @@
         state: directory
     - name: Download elk
       unarchive:
-        src: "https://github.com/papebadiane/docker-elkf/archive/{{ elk_repo_version}}.tar.gz"
+        src: "https://github.com/papebadiane/docker-e=lkf/archive/{{ elk_repo_version}}.tar.gz"
         dest: "{{ elk_install_path }}"
         remote_src: true
 

@@ -1,8 +1,12 @@
-Ansible playbook for container ELK and Filebeat
+Ansible playbook for ELK and Filebeat
 ------
 ## Description
 
-This playbook install run docker container ELK from repository [docker_elkf](https://github.com/papebadiane/docker-elkf) on an admin node, install and run Filebeat on other Nodes
+This playbook has multiple roles, it permit:
+
+* Install and run [ELK Stack](https://www.elastic.co/elk-stack) or  [container ELK](https://github.com/papebadiane/docker-elkf)
+* Install and run Filebeat
+* Load kibana's dashboard and visualizations
 
 
 ## Prerequisites:
@@ -32,60 +36,53 @@ sudo yum install -y ansible
 
 ##  Setup
 
-You will need to  install the roles dependencies
+* You will need to  install the roles dependencies
 
 ```
-export OPENIO_LOGANALYZER_RELEASE="0.1.4"
+export OPENIO_LOGANALYZER_RELEASE="0.1.5"
 mkdir -p ~/openio-loganalyzer && cd ~/openio-loganalyzer
-curl -sL "https://github.com/papebadiane/ansible-docker-elkf/archive/$OPENIO_LOGANALYZER_RELEASE.tar.gz" | tar xz --strip-components=1
+<!-- curl -sL "https://github.com/papebadiane/ansible-playbook-deployment-elkf/$OPENIO_LOGANALYZER_RELEASE.tar.gz" | tar xz --strip-components=1 -->
 ansible-galaxy install -r requirements.yml --force
 
 ```
 
-You will need to **change your inventory file** according this [example](https://github.com/papebadiane/ansible-docker-elkf/blob/master/inventory/testing.ini)
+* You will need to **change your inventory file** according this [example](https://github.com/papebadiane/ansible-playbook-deployment-elkf/blob/master/inventories/testing.ini)
 
 
 ```
-$ cp inventory/testing.ini inventory/current.ini
+$ cp inventories/testing.ini inventories/current.ini
 
-$ vim inventory/current.ini
+$ vim inventories/current.ini
 
 ```
 
-
-## Configure
-
-Below you will find a description of the variables of the playbook
-
+* Change the variables in `group_vars/elkservers` and `group_vars/filebeatservers` in depend on your hosts configuration.
 
 
 |      Variable name                 |               Description                                    |     Type    |
 |------------------------------------|--------------------------------------------------------------|-------------|
+| elk_cluster_name                   | The name of Elasticsearch cluster                            | String      |
+| **elasticsearch_heap_size**        | The memory of Elasticsearch HEAP SIZE                        | String      |
+| **logstash_heap_size**             | The memory of Logstash HEAP SIZE                             | String      |
+| **install_docker_elk**             | Install container ELK                                        | Boolean     |
+| docker_elk_version                 | Version of container ELK                                     | String      |
+| **docker_repo_path**               | Path of ELK docker-compose                                   | String      |
+| **install_bar_metal_elk**          | Install  ELK physicaly                                       | Boolean     |
+| es_version                         | ELK Version                                                  | String      |
+| **elasticsearch_data_dirs**        | Elasticsearch data repository                                | String      |
+| kibana_config                      | kibana configuration                                         | String      |
 | **openio_namespace**               | The OPENIO namespace                                         | String      |
-| **elk_install_path**               | the path of repository where the projet will be stored       | String      |
 | filebeat_prospectors               | List of filebeat prospectors                                 | List        |
-| **elkf_admin_group**               | name of group for elk cluster                                | String      |
-| **elkf_admin_iface**               | input interface of admin's host                              | String      |
 | **kibana_server_group**            | name of group of kibana                                      | String      |
 | **kibana_interface**               | input interface of kibana server                             | String      |
 
 Before running the playbook, make sure that you have checked that all the fields marked in bold are correct.
 
-#### JVM tunning
-
-Elasticsearch starts with 1/4 of the total host memory allocated to the JVM Heap Size.
-
-The startup scripts for Elasticsearch can append extra JVM options from the value of an environment variable, allowing the user to adjust the amount of memory that can be used by each component
-
-|      Environment Variable          |               Description                                    |
-|------------------------------------|--------------------------------------------------------------|
-|   ES_JAVA_OPTS                     | memory allocated to the Heap size of Elasticsearch container |
-|   ES_CURATOR_DAYS                  | Number of days during which elastic's data are stored        |
 
 ## Run
 
 ```
-$ ansible-playbook -i inventory/current.ini main.yml
+$ ansible-playbook -i inventories/current.ini main.yml
 
 ```
 

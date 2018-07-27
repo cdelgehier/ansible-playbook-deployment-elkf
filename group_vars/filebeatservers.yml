@@ -1,7 +1,6 @@
 ---
 
 elkf_admin_group: elkservers
-elkf_admin_iface: enp4s0
 openio_namespace: OPENIO
 
 filebeat_output_logstash_hosts:
