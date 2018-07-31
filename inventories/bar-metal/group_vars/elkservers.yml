@@ -5,11 +5,6 @@ elasticsearch_heap_size: 1g
 logstash_heap_size: 1g
 
 
-#-------------------------------------- Docker container Variable------------------------------------------
-install_docker_elk: false
-docker_elk_version: "0.1.4"
-docker_repo_path: "/var/lib/loganalyzer"
-
 # -------------------------------Bar metal Variable-----------------------------------------------------------
 install_bar_metal_elk: true
 es_version: "6.2.4"
@@ -39,6 +34,6 @@ kibana_dashboard_path: "{{ docker_repo_path }}/docker-elkf-{{ docker_elk_version
 kibana_visualization_path: "{{ docker_repo_path }}/docker-elkf-{{ docker_elk_version }}/elk/kibana/dashboard/visualization.json"
 
 kibana_server_ip: "{{ hostvars[groups[kibana_server_group][0]]['ansible_'+ kibana_interface]['ipv4']['address'] }}"
-kibana_user:
-kibana_password:
+kibana_user: kibanaserver
+kibana_password: kibanaserver
 ...
