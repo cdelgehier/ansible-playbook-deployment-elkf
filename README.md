@@ -73,7 +73,8 @@ ansible_user=root
 * Change the variables in `inventories/<YOUR_CHOICE>/group_vars/elkservers` and `inventories/<YOUR_CHOICE>/group_vars/filebeatservers` in depend on your hosts configuration.
 
   - DOCKER  
-  
+
+
           |      Variable name                 |               Description                                    |     Type    |
           |------------------------------------|--------------------------------------------------------------|-------------|
           | elk_cluster_name                   | The name of Elasticsearch cluster                            | String      |
