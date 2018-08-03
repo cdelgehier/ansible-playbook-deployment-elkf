@@ -1,24 +1,31 @@
 ---
+
 elk_cluster_name: "elk-cluster"
 elk_node_name: "node-1"
-elasticsearch_heap_size: 1g
+elasticsearch_heap_size: 2g
 logstash_heap_size: 1g
 
 
 #-------------------------------------- Docker container Variable------------------------------------------
-install_docker_elk: truue
+install_docker_elk: true
 docker_elk_version: "0.1.4"
 docker_repo_path: "/var/lib/loganalyzer"
 
 
+#--------------------------------------------------Visualisations, dashboards and searches--------------------------------------
+# set the variable at true if you want import kibana objects (visualisations, dashboards and searches)
+import_kibana_objects: true
 
-##--------------------- Kibana Dashboard and visualizations------------------------------------------------
 kibana_server_group: elkservers
 kibana_interface: lo
-kibana_dashboard_path: "{{ docker_repo_path }}/docker-elkf-{{ docker_elk_version }}/elk/kibana/dashboard/dashboard.json"
-kibana_visualization_path: "{{ docker_repo_path }}/docker-elkf-{{ docker_elk_version }}/elk/kibana/dashboard/visualization.json"
+# location of kibana objects
+kibana_dashboard_path: "{{docker_repo_path}}/oio-elk-{{ docker_elk_version }}/elk/kibana/dashboard/dashboard.json"
+kibana_visualization_path: "{{docker_repo_path}}/oio-elk-{{ docker_elk_version }}/elk/kibana/dashboard/Visualisation.json"
+kibana_search_path: "{{docker_repo_path}}/oio-elk-{{ docker_elk_version }}/elk/kibana/dashboard/search.json"
 
-kibana_server_ip: "{{ hostvars[groups[kibana_server_group][0]]['ansible_'+ kibana_interface]['ipv4']['address'] }}"
-kibana_user: kibanaserver
-kibana_password: kibanaserver
+kibana_index_pattern: "oio-*"
+kibana_time_filter: "@timestamp"
+
+kibana_user: "kibana"
+kibana_password: "kibana"
 ...

@@ -6,7 +6,7 @@
 - src: https://github.com/geerlingguy/ansible-role-docker
   version: 2.1.0
 - src: https://github.com/papebadiane/ansible-role-kibana-import-dashboard-and-visualization
-  version: 0.1.2
+  version: 0.1.4
 - src: https://github.com/elastic/ansible-elasticsearch
   version: 6.3.1
 - src: https://github.com/papebadiane/ansible-role-kibana
