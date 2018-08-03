@@ -41,7 +41,7 @@ sudo yum install -y ansible
 ```
 export OPENIO_LOGANALYZER_RELEASE="0.1.5"
 mkdir -p ~/openio-loganalyzer && cd ~/openio-loganalyzer
-<!-- curl -sL "https://github.com/papebadiane/ansible-playbook-deployment-elkf/$OPENIO_LOGANALYZER_RELEASE.tar.gz" | tar xz --strip-components=1 -->
+curl -sL "https://github.com/papebadiane/ansible-playbook-deployment-elkf/$OPENIO_LOGANALYZER_RELEASE.tar.gz" | tar xz --strip-components=1
 ansible-galaxy install -r requirements.yml --force
 
 ```
@@ -55,7 +55,7 @@ ansible-galaxy install -r requirements.yml --force
 
 ```
 [elkservers]
-node1 ansible_host=192.168.1.3
+node1 ansible_host=192.168.1.2
 
 [elkservers:vars]
 ansible_user=root
@@ -75,37 +75,37 @@ ansible_user=root
   - DOCKER  
 
 
-          |      Variable name                 |               Description                                    |     Type    |
-          |------------------------------------|--------------------------------------------------------------|-------------|
-          | elk_cluster_name                   | The name of Elasticsearch cluster                            | String      |
-          | **elasticsearch_heap_size**        | The memory of Elasticsearch HEAP SIZE                        | String      |
-          | **logstash_heap_size**             | The memory of Logstash HEAP SIZE                             | String      |
-          | **install_docker_elk**             | Install container ELK                                        | Boolean     |
-          | docker_elk_version                 | Version of container ELK                                     | String      |
-          | **docker_repo_path**               | Path of ELK docker-compose                                   | String      |
-          | **openio_namespace**               | The OPENIO namespace                                         | String      |
-          | filebeat_prospectors               | List of filebeat prospectors                                 | List        |
-          | **kibana_server_group**            | name of group of kibana                                      | String      |
-          | **kibana_interface**               | input interface of kibana server                             | String      |
+|      Variable name                 |               Description                                    |     Type    |
+|------------------------------------|--------------------------------------------------------------|-------------|
+| elk_cluster_name                   | The name of Elasticsearch cluster                            | String      |
+| **elasticsearch_heap_size**        | The memory of Elasticsearch HEAP SIZE                        | String      |
+| **logstash_heap_size**             | The memory of Logstash HEAP SIZE                             | String      |
+| **install_docker_elk**             | Install container ELK                                        | Boolean     |
+| docker_elk_version                 | Version of container ELK                                     | String      |
+| **docker_repo_path**               | Path of ELK docker-compose                                   | String      |
+| **openio_namespace**               | The OPENIO namespace                                         | String      |
+| filebeat_prospectors               | List of filebeat prospectors                                 | List        |
+| **kibana_server_group**            | name of group of kibana                                      | String      |
+| **kibana_interface**               | input interface of kibana server                             | String      |
 
 
 
   - BAR METAL
 
-          |      Variable name                 |               Description                                    |     Type    |
-          |------------------------------------|--------------------------------------------------------------|-------------|
-          | elk_cluster_name                   | The name of Elasticsearch cluster                            | String      |
-          | **elasticsearch_heap_size**        | The memory of Elasticsearch HEAP SIZE                        | String      |
-          | **logstash_heap_size**             | The memory of Logstash HEAP SIZE                             | String      |
-          | **docker_repo_path**               | Path of ELK docker-compose                                   | String      |
-          | **install_bar_metal_elk**          | Install  ELK physicaly                                       | Boolean     |
-          | es_version                         | ELK Version                                                  | String      |
-          | **elasticsearch_data_dirs**        | Elasticsearch data repository                                | String      |
-          | kibana_config                      | kibana configuration                                         | String      |
-          | **openio_namespace**               | The OPENIO namespace                                         | String      |
-          | filebeat_prospectors               | List of filebeat prospectors                                 | List        |
-          | **kibana_server_group**            | name of group of kibana                                      | String      |
-          | **kibana_interface**               | input interface of kibana server                             | String      |
+|      Variable name                 |               Description                                    |     Type    |
+|------------------------------------|--------------------------------------------------------------|-------------|
+| elk_cluster_name                   | The name of Elasticsearch cluster                            | String      |
+| **elasticsearch_heap_size**        | The memory of Elasticsearch HEAP SIZE                        | String      |
+| **logstash_heap_size**             | The memory of Logstash HEAP SIZE                             | String      |
+| **docker_repo_path**               | Path of ELK docker-compose                                   | String      |
+| **install_bar_metal_elk**          | Install  ELK physicaly                                       | Boolean     |
+| es_version                         | ELK Version                                                  | String      |
+| **elasticsearch_data_dirs**        | Elasticsearch data repository                                | String      |
+| kibana_config                      | kibana configuration                                         | String      |
+| **openio_namespace**               | The OPENIO namespace                                         | String      |
+| filebeat_prospectors               | List of filebeat prospectors                                 | List        |
+| **kibana_server_group**            | name of group of kibana                                      | String      |
+| **kibana_interface**               | input interface of kibana server                             | String      |
 
 Before running the playbook, make sure that you have checked that all the fields marked in bold are correct.
 ## Run
