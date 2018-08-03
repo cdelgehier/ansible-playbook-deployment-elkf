@@ -1,8 +1,8 @@
 [elkservers]
-docker_node1 ansible_host=elk1 ansible_connection=docker
+node1 ansible_host=localhost ansible_connection=local
 
 [elkservers:vars]
-ansible_user=root
+ansible_user=centos
 
 
 [filebeatservers]
