@@ -7,13 +7,13 @@ env:
     - distribution: centos
       version: 7
       init: "/usr/lib/systemd/systemd"
-      run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+      run_opts: "--detach --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     - distribution: ubuntu
       version: 16.04
-      run_opts: "--volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+      run_opts: "--detach --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     - distribution: ubuntu
       version: 18.04
-      run_opts: "--volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+      run_opts: "--detach --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
 
 
 before_install:
