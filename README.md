@@ -116,3 +116,7 @@ $ ansible-playbook -i inventories/<YOUR_CHOICE>/hosts main.yml
 ```
 
 Now you can to head `http://[ADMIN_IP]:5601`
+
+
+
+## Examples
