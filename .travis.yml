@@ -25,9 +25,8 @@ before_install:
 
 script:
   # run playbook
-  - 'docker exec  elk_${version} cd /etc/ansible/elk'
   - 'docker exec elk_${version} ansible-galaxy install -r requirements.yml --force'
-  - 'docker exec --tty elk_${version} ansible-playbook -i inventories/bar-metal/hosts test.yml'
+  - 'docker exec --tty elk_${version} ansible-playbook -i /etc/ansible/elk/inventories/bar-metal/hosts /etc/ansible/elk/test.yml'
 
 
 after_install:
