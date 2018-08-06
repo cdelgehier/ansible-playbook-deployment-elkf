@@ -18,8 +18,8 @@ env:
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get install python-jmespath
-  - sudo pip install --upgrade pip
+  - sudo  pip install --upgrade pip
+  - sudo apt-get install python2-jmespath
   - pip install jmespath
   - 'docker pull  cdelgehier/docker_images_ansible:2.5_${distribution}_${version}'
   - 'docker run ${run_opts}  --name elk_${version} --volume=${PWD}:/etc/ansible/elk/ cdelgehier/docker_images_ansible:2.5_${distribution}_${version} ${init}'
