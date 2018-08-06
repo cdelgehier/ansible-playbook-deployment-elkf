@@ -22,6 +22,7 @@ before_install:
   - 'docker run ${run_opts}  --name elk_${version} --volume=${PWD}:/etc/ansible/elk/ cdelgehier/docker_images_ansible:2.5_${distribution}_${version} ${init}'
 
 
+
 script:
   # run playbook
   - container_id=$(mktemp)
