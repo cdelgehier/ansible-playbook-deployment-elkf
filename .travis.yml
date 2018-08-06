@@ -3,22 +3,23 @@ sudo: required
 services:
   - docker
 env:
-  - distribution: centos
-    version: 7
-    init: "/usr/lib/systemd/systemd"
-    run_opts: "--privilege --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-  - distribution: ubuntu
-    version: 16.04
-    run_opts: "--volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-  - distribution: ubuntu
-    version: 18.04
-    run_opts: "--volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+  matrix:
+    - distribution: centos
+      version: 7
+      init: "/usr/lib/systemd/systemd"
+      run_opts: "--privilege --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    - distribution: ubuntu
+      version: 16.04
+      run_opts: "--volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    - distribution: ubuntu
+      version: 18.04
+      run_opts: "--volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
 
 
 before_install:
-  - sudp apt-get update
-  - 'sudo docker pull  cdelgehier/docker_images_ansible:2.5_${distribution}_{version}'
-  - 'docker run ${run_opts}  --name elk-${version} --volume ${PWD}:etc/ansible/elk/ cdelgehier/docker_images_ansible:2.5_${distribution}_{version} ${init}'
+  - sudo apt-get update
+  - 'docker pull  cdelgehier/docker_images_ansible:2.5_${distribution}_${version}'
+  - 'docker run ${run_opts}  --name elk-${version} --volume ${PWD}:etc/ansible/elk/ cdelgehier/docker_images_ansible:2.5_${distribution}_${version} ${init}'
 
 
 script:
