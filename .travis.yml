@@ -19,14 +19,14 @@ env:
 before_install:
   - sudo apt-get update
   - 'docker pull  cdelgehier/docker_images_ansible:2.5_${distribution}_${version}'
-  - 'docker run ${run_opts}  --name elk-${version} --volume ${PWD}:etc/ansible/elk/ cdelgehier/docker_images_ansible:2.5_${distribution}_${version} ${init}'
+  - 'docker run ${run_opts}  --name elk_${version} --volume=${PWD}:etc/ansible/elk/ cdelgehier/docker_images_ansible:2.5_${distribution}_${version} ${init}'
 
 
 script:
   # run playbook
   - container_id=$(mktemp)
-  - docker exec elk-${version} ansible-playbook -i inventories/bar-metal/hosts test.yml > ${container_id}
+  - 'docker exec elk_${version} ansible-playbook -i inventories/bar-metal/hosts test.yml > ${container_id}'
 
 
 after_install:
-   - docker rm -f elk-{version}
+   - 'docker rm -f elk-{version}'
