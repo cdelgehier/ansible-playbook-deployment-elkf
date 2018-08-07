@@ -7,23 +7,22 @@ env:
     - distribution: centos
       version: 7
       init: "/usr/lib/systemd/systemd"
-      run_opts: "--detach --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+      run_opts: "--detach --privileged=true --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     - distribution: ubuntu
       version: 16.04
-      run_opts: "--detach --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+      init: "/sbin/init"
+      run_opts: "--detach --privileged=true --volume=/run --volume=/run/lock --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro  --cap-add=SYS_ADMIN --cap-add=SYS_RESOURCE"
     - distribution: ubuntu
       version: 18.04
-      run_opts: "--detach --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+      init: "/sbin/init"
+      run_opts: "--detach --privileged=true --volume=/run --volume=/run/lock --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro  --cap-add=SYS_ADMIN --cap-add=SYS_RESOURCE"
 
 
 before_install:
   - sudo apt-get update
-  - sudo  pip install --upgrade pip
-  # - sudo apt-get install python-jmespath
-  - sudo pip install jmespath
   - 'docker pull  cdelgehier/docker_images_ansible:2.5_${distribution}_${version}'
   - 'docker run ${run_opts}  --name elk_${version} --volume=${PWD}:/etc/ansible/elk/ cdelgehier/docker_images_ansible:2.5_${distribution}_${version} ${init}'
-
+  - 'docker exec elk_${version} pip install jmespath'
 
 
 script:
