@@ -1,12 +1,12 @@
 [elkservers]
-node1 ansible_host=localhost ansible_connection=local
+elk_node1 ansible_host=HH ansible_user=root ansible_connection=docker
 
 [elkservers:vars]
 ansible_user=root
 
 
 [filebeatservers]
-
+filebeat_node1 ansible_host= ansible_user=root ansible_connection=docker
 
 [filebeatservers:vars]
 ansible_user=root

@@ -4,33 +4,41 @@ services:
   - docker
 env:
   matrix:
-    - distribution: centos
-      version: 7
-      init: "/usr/lib/systemd/systemd"
-      run_opts: "--detach --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    - distribution: ubuntu
-      version: 16.04
-      run_opts: "--detach --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    - distribution: ubuntu
-      version: 18.04
-      run_opts: "--detach --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    - DISTRIBUTION: centos
+      VERSION: 7
+    - DISTRIBUTION: ubuntu
+      VERSION: 16.04
 
 
 before_install:
+    # Install latest Git
   - sudo apt-get update
-  - sudo  pip install --upgrade pip
-  # - sudo apt-get install python-jmespath
-  - sudo pip install jmespath
-  - 'docker pull  cdelgehier/docker_images_ansible:2.5_${distribution}_${version}'
-  - 'docker run ${run_opts}  --name elk_${version} --volume=${PWD}:/etc/ansible/elk/ cdelgehier/docker_images_ansible:2.5_${distribution}_${version} ${init}'
+  - sudo apt-get install --only-upgrade git
+    # Allow fetching other branches than master
+  - git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
+    # Fetch the branch with test code
+  - git fetch origin docker-tests
+  - git worktree add docker-tests origin/docker-tests
+  - chmod +X docker-tests/docker-tests.sh
 
-
+   # Lint
+  - sudo pip install --upgrade pip
+  - sudo pip install ansible-lint yamllint
 
 script:
-  # run playbook
-  - 'docker exec elk_${version} ansible-galaxy install -r /etc/ansible/elk/requirements.yml --force'
-  - 'docker exec --tty elk_${version} ansible-playbook -i /etc/ansible/elk/inventories/bar-metal/hosts /etc/ansible/elk/test.yml'
+  # Lint
+  - ansible-lint . -x ANSIBLE0016
+  - yamllint .
 
+  #Run bar metal mode
+  - ./docker-tests/docker-tests.sh && export CONTAINER_ID=$(docker ps -qa | head -n 1)
+  - sed -i -e "s@elk_node1 .*@elk_node1 ansible_host=$CONTAINER_ID ansible_user=root ansible_connection=docker@" inventories/bar-metal/host
+
+
+  - ./docker-tests/docker-tests.sh && export CONTAINER_ID=$(docker ps -qa | head -n 1)
+  - sed -i -e "s@filebeat_node1 .*@filebeat_node1 ansible_host=$CONTAINER_ID ansible_user=root ansible_connection=docker@" inventories/bar-metal/hosts
+
+  - ansible-playbook -i inventories/bar-metal/hosts main.yml
 
 after_install:
-   - 'docker rm -f elk_{version}'
+  - docker rm -f $(docker ps -aq)
