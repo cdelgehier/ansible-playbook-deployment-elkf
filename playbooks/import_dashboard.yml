@@ -1,7 +1,0 @@
----
-
-- name: Load kibana dashboard and visualization
-  hosts: elkservers
-  roles:
-    - role: ansible-role-kibana-import-dashboard-and-visualization
-...

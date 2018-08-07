@@ -1,7 +1,0 @@
----
-- hosts: filebeatservers
-  become: true
-  roles:
-    - role: ansible-role-filebeat
-
-...
