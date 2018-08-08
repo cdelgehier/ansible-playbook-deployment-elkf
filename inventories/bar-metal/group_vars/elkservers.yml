@@ -31,9 +31,13 @@ import_kibana_objects: true
 kibana_server_group: elkservers
 kibana_interface: lo
 # location of kibana objects
-kibana_dashboard_path: "/home/pape/Documents/projects/loganalyzer/elk/kibana/dashboard/dashboard.json"
-kibana_visualization_path: "/home/pape/Documents/projects/loganalyzer/elk/kibana/dashboard/Visualisation.json"
-kibana_search_path: "/home/pape/Documents/projects/loganalyzer/elk/kibana/dashboard/search.json"
+kibana_dashboard_path: "/etc/kibana/dashboards/dashboard.json"
+kibana_visualization_path: "/etc/kibana/dashboards/visualization.json"
+kibana_search_path: "/etc/kibana/dashboards/search.json"
+# 
+# kibana_dashboard: "{{ lookup('file', '../../../files/dashboards/dashboard.json') | from_json }}"
+# kibana_visualization: "{{ lookup('file', '../../../files/dashboards/visualization.json') | from_json }}"
+# kibana_search: "{{ lookup('file', '../../../files/dashboards/search.json') | from_json }}"
 
 kibana_index_pattern: "oio-*"
 kibana_time_filter: "@timestamp"

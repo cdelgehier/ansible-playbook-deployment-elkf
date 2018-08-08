@@ -41,7 +41,7 @@
   tasks:
     - name: copy searchguard files
       copy:
-        src: ../files/
+        src: ../files/elasticsearch_conf/
         dest: "{{conf_dir}}"
         owner: "{{es_user}}"
         group : "{{es_group }}"

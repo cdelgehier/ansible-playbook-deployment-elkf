@@ -1,5 +1,8 @@
 Ansible playbook for ELK and Filebeat
 ------
+
+[![Build Status](https://travis-ci.com/papebadiane/ansible-playbook-deployment-elkf.svg?branch=master)](https://travis-ci.com/papebadiane/ansible-playbook-deployment-elkf)
+
 ## Description
 
 This playbook has multiple roles, it permit:

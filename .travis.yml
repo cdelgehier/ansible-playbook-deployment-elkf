@@ -29,18 +29,26 @@ before_install:
 
 script:
 
+  # Run docker elk
+  - ./docker-tests/docker-tests.sh && export FILEBEAT_CONTAINER_ID=$(docker ps -qa | head -n 1)
+  - sed -i -e "s@elk_node1 .*@elk_node1 ansible_host=$ELK_CONTAINER_ID ansible_user=root ansible_connection=docker@" inventories/docker/hosts
+  
+  - ansible-galaxy install -r requirements.yml --force
+  - ansible-playbook -i inventories/docker/hosts main.yml
 
   #Run bar metal mode
-  - ./docker-tests/docker-tests.sh && export CONTAINER_ID=$(docker ps -qa | head -n 1)
-  - sed -i -e "s@elk_node1 .*@elk_node1 ansible_host=$CONTAINER_ID ansible_user=root ansible_connection=docker@" inventories/bar-metal/hosts
+  - ./docker-tests/docker-tests.sh && export ELK_CONTAINER_ID=$(docker ps -qa | head -n 1)
+  - sed -i -e "s@elk_node1 .*@elk_node1 ansible_host=$ELK_CONTAINER_ID ansible_user=root ansible_connection=docker@" inventories/bar-metal/hosts
 
 
-  - ./docker-tests/docker-tests.sh && export CONTAINER_ID=$(docker ps -qa | head -n 1)
-  - sed -i -e "s@filebeat_node1 .*@filebeat_node1 ansible_host=$CONTAINER_ID ansible_user=root ansible_connection=docker@" inventories/bar-metal/hosts
-  - docker ps
-  - docker images
-  - ansible-galaxy install -r requirements.yml --force
+  - ./docker-tests/docker-tests.sh && export FILEBEAT_CONTAINER_ID=$(docker ps -qa | head -n 1)
+  - sed -i -e "s@filebeat_node1 .*@filebeat_node1 ansible_host=$FILEBEAT_CONTAINER_ID ansible_user=root ansible_connection=docker@" inventories/bar-metal/hosts
+
+  # - ansible-galaxy install -r requirements.yml --force
   - ansible-playbook -i inventories/bar-metal/hosts main.yml
+
+
+
 
 after_install:
   - docker rm -f $(docker ps -aq)
