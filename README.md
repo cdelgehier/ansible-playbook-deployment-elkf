@@ -55,14 +55,14 @@ ansible-galaxy install -r requirements.yml --force
 
 ```
 [elkservers]
-node1 ansible_host=192.168.1.2
+elk_node1 ansible_host=192.168.1.2
 
 [elkservers:vars]
 ansible_user=root
 
 
 [filebeatservers]
-node2 ansible_host=192.168.1.3
+filebeat_node1 ansible_host=192.168.1.3
 
 [filebeatservers:vars]
 ansible_user=root
