@@ -1,6 +1,7 @@
 ---
 - name: Elasticsearch with custom configuration"
   hosts: elkservers
+  become: true
   roles:
     - role: ansible-elasticsearch
   vars:

@@ -27,13 +27,20 @@
         state: directory
     - name: Download elk
       unarchive:
-        src: "https://github.com/openio/oio-elk/archive/{{ elk_repo_version}}.tar.gz"
+        src: "https://github.com/open-io/oio-elk/archive/{{ elk_repo_version}}.tar.gz"
         dest: "{{ elk_install_path }}"
         remote_src: true
 
-    - name: "change the working directory {{ elk_install_path }}/docker-elkf-{{ elk_repo_version }} and run the container ELK"
+    - name: "change the working directory and run the container ELK"
       shell: docker-compose up -d --build elk
       args:
         chdir: "{{ elk_install_path }}/oio-elk-{{ elk_repo_version }}"
-
+    - name: Wait for elasticsearch startup ...
+      wait_for_connection:
+        delay: 120
+        timeout: 300
+    - name: "Initialize Search guard"
+      shell: docker-compose exec -T elk /etc/elasticsearch/bin/sgadmin_install.sh
+      args:
+        chdir: "{{ elk_install_path }}/oio-elk-{{ elk_repo_version }}"
 ...

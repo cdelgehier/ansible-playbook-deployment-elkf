@@ -1,6 +1,7 @@
 ---
 - name: Kibana with custom configuration"
   hosts: elkservers
+  become: true
   roles:
     - role: ansible-role-kibana
   vars:

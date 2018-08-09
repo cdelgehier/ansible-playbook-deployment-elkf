@@ -34,10 +34,10 @@ kibana_interface: lo
 kibana_dashboard_path: "/etc/kibana/dashboards/dashboard.json"
 kibana_visualization_path: "/etc/kibana/dashboards/visualization.json"
 kibana_search_path: "/etc/kibana/dashboards/search.json"
-# 
-# kibana_dashboard: "{{ lookup('file', '../../../files/dashboards/dashboard.json') | from_json }}"
-# kibana_visualization: "{{ lookup('file', '../../../files/dashboards/visualization.json') | from_json }}"
-# kibana_search: "{{ lookup('file', '../../../files/dashboards/search.json') | from_json }}"
+
+kibana_dashboard: "{{ lookup('file', '../files/dashboards/dashboard.json') | from_json }}"
+kibana_visualization: "{{ lookup('file', '../files/dashboards/visualization.json') | from_json }}"
+kibana_search: "{{ lookup('file', '../files/dashboards/search.json') | from_json }}"
 
 kibana_index_pattern: "oio-*"
 kibana_time_filter: "@timestamp"

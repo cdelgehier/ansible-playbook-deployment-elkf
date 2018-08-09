@@ -17,9 +17,9 @@
 
 - name: filebeat
   import_playbook: playbooks/filebeat_playbook.yml
-# 
-# - name: Import dashboards, Visualisations and searches
-#   import_playbook: playbooks/import_dashboard.yml
-#   when: import_kibana_objects
+
+- name: Import dashboards, Visualisations and searches
+  import_playbook: playbooks/import_dashboard.yml
+  when: import_kibana_objects
 
 ...

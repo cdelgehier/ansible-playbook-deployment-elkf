@@ -1,7 +1,21 @@
 ---
 
 - name: Load kibana dashboard and visualization
+  become: true
   hosts: elkservers
+  pre_tasks:
+    - name: Copy visualizations , dashboards and searches to remote host
+      copy:
+        src: "../files/dashboards/"
+        dest: "/etc/kibana/dashboards"
+        mode: 664
+      when: install_bar_metal_elk is defined and install_bar_metal_elk
+    - name: change permissions of files
+      file:
+        path: "/etc/kibana/"
+        mode: u=rw,g=rw,o=r
+        recurse: yes
+      when: install_bar_metal_elk is defined and install_bar_metal_elk
   roles:
     - role: ansible-role-kibana-import-dashboard-and-visualization
 ...

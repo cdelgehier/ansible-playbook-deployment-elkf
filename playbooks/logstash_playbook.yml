@@ -1,6 +1,7 @@
 ---
 - name: logstash with custom configuration"
   hosts: elkservers
+  become: true
   roles:
     - role: ansible-role-logstash
   vars:
