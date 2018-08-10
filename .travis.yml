@@ -36,9 +36,10 @@ script:
   - ansible-galaxy install -r requirements.yml --force
   - ansible-playbook -i inventories/docker/hosts main.yml
 
+  - export ELK_CONTAINER_ID_1=$(docker ps -qa | head -n 1)
   #Run bar metal mode
-  - ./docker-tests/docker-tests.sh && export ELK_CONTAINER_ID=$(docker ps -qa | head -n 1)
-  - sed -i -e "s@elk_node1 .*@elk_node1 ansible_host=$ELK_CONTAINER_ID ansible_user=root ansible_connection=docker@" inventories/bar-metal/hosts
+  - ./docker-tests/docker-tests.sh && export ELK_CONTAINER_ID_2=$(docker ps -qa | head -n 1)
+  - sed -i -e "s@elk_node1 .*@elk_node1 ansible_host=$ELK_CONTAINER_ID_2 ansible_user=root ansible_connection=docker@" inventories/bar-metal/hosts
 
 
   - ./docker-tests/docker-tests.sh && export FILEBEAT_CONTAINER_ID=$(docker ps -qa | head -n 1)
@@ -46,6 +47,12 @@ script:
 
   - ansible-playbook -i inventories/bar-metal/hosts main.yml
 
+
+  # Run functional tests on the container (docker mode )
+  - CONTAINER_ID=${ELK_CONTAINER_ID_1} ACCESS=admin:openio10 ./docker-tests/functional-tests.sh
+
+  # Run functional tests on the container (bar-metal mode )
+  - CONTAINER_IP=172.17.0.3 ACCESS=admin:openio10 ./docker-tests/functional-tests.sh
 
 
 

@@ -11,6 +11,7 @@
         node.name: "{{ elk_node_name }}"
         cluster.name: "{{ elk_cluster_name }}"
         discovery.zen.ping.unicast.hosts: "localhost:9300"
+        network.host: 0.0.0.0
         http.port: 9200
         transport.tcp.port: 9300
         node.data: true
