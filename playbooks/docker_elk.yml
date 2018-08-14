@@ -7,8 +7,8 @@
     LS_HEAP_SIZE: "{{ logstash_heap_size }}"
     ES_CLUSTER_NAME: "{{ elk_cluster_name }}"
   vars:
-      elk_install_path: "{{ docker_repo_path }}"
-      elk_repo_version: "{{ docker_elk_version }}"
+    elk_install_path: "{{ docker_repo_path }}"
+    elk_repo_version: "{{ docker_elk_version }}"
   roles:
     - role: ansible-role-java
 

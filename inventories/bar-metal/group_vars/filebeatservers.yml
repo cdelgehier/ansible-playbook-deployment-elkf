@@ -54,3 +54,4 @@ filebeat_prospectors:
       - "/var/log/oio/sds/{{ openio_namespace }}/*/*-errors.log*"
     fields:
       name_log: oio-errors
+...

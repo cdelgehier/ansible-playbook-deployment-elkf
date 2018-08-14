@@ -8,25 +8,25 @@
     es_instance_name: "instance1"
     es_enable_xpack: false
     es_config:
-        node.name: "{{ elk_node_name }}"
-        cluster.name: "{{ elk_cluster_name }}"
-        discovery.zen.ping.unicast.hosts: "localhost:9300"
-        network.host: 0.0.0.0
-        http.port: 9200
-        transport.tcp.port: 9300
-        node.data: true
-        node.master: true
-        bootstrap.memory_lock: true
-        thread_pool.bulk.queue_size: 2000
-        discovery.zen.minimum_master_nodes: 1
-        discovery.type: single-node
-        searchguard.enterprise_modules_enabled: true
-        searchguard.ssl.transport.enabled: true
-        searchguard.ssl.transport.keystore_filepath: "sgconfig/node-0-keystore.jks"
-        searchguard.ssl.transport.truststore_filepath: "sgconfig/truststore.jks"
-        searchguard.ssl.transport.enforce_hostname_verification: false
-        searchguard.authcz.admin_dn:
-          - CN=kirk,OU=client,O=client,L=Test,C=DE
+      node.name: "{{ elk_node_name }}"
+      cluster.name: "{{ elk_cluster_name }}"
+      discovery.zen.ping.unicast.hosts: "localhost:9300"
+      network.host: 0.0.0.0
+      http.port: 9200
+      transport.tcp.port: 9300
+      node.data: true
+      node.master: true
+      bootstrap.memory_lock: true
+      thread_pool.bulk.queue_size: 2000
+      discovery.zen.minimum_master_nodes: 1
+      discovery.type: single-node
+      searchguard.enterprise_modules_enabled: true
+      searchguard.ssl.transport.enabled: true
+      searchguard.ssl.transport.keystore_filepath: "sgconfig/node-0-keystore.jks"
+      searchguard.ssl.transport.truststore_filepath: "sgconfig/truststore.jks"
+      searchguard.ssl.transport.enforce_hostname_verification: false
+      searchguard.authcz.admin_dn:
+        - CN=kirk,OU=client,O=client,L=Test,C=DE
     es_scripts: false
     es_templates: false
     es_start_service: false
@@ -46,24 +46,24 @@
         src: ../files/elasticsearch_conf/
         dest: "{{conf_dir}}"
         owner: "{{es_user}}"
-        group : "{{es_group }}"
+        group: "{{es_group }}"
 
     - name: set permissions of execute file
       file:
         path: /usr/share/elasticsearch/plugins/search-guard-6/tools/sgadmin.sh
         mode: "+x"
     - name: reload systemd configuration
-      become: yes
+      become: true
       command: systemctl daemon-reload
 
     - name: restart elasticsearch
-      become: yes
+      become: true
       service: name={{instance_init_script | basename}} state=restarted enabled=yes
 
     - name: Wait for Elasticsearch startup
       wait_for:
-      delay: 1
-      timeout: 5
+        delay: 1
+        timeout: 120
 
     - name: set permissions of sgadmin install file
       file:
