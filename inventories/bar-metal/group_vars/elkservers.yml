@@ -11,7 +11,18 @@ es_version: "6.2.4"
 ## Elastic vars
 elasticsearch_data_dirs: "/var/lib/elasticsearch"
 
-## kibana vars
+
+# Kibana parameters
+kibana_version: "{{es_version}}"
+kibana_server_port: 5601
+kibana_server_host: "0.0.0.0"
+kibana_elasticsearch_url: "http://localhost:9200"
+
+#Install search guard plugins
+kibana_plugins:
+  - plugin: https://search.maven.org/remotecontent?filepath=com/floragunn/search-guard-kibana-plugin/6.2.4-13/search-guard-kibana-plugin-6.2.4-13.zip
+
+## Search guard parameters
 kibana_config:
   elasticsearch.username: "kibanaserver"
   elasticsearch.password: "kibanaserver"
@@ -23,7 +34,6 @@ kibana_config:
   searchguard.multitenancy.tenants.enable_global: false
   kibana.index: ".kibana"
 
-
 #--------------------------------------------------Visualisations, dashboards and searches--------------------------------------
 # set the variable at true if you want import kibana objects (visualisations, dashboards and searches)
 import_kibana_objects: true
@@ -31,13 +41,10 @@ import_kibana_objects: true
 kibana_server_group: elkservers
 kibana_interface: lo
 # location of kibana objects
-kibana_dashboard_path: "/etc/kibana/dashboards/dashboard.json"
-kibana_visualization_path: "/etc/kibana/dashboards/visualization.json"
-kibana_search_path: "/etc/kibana/dashboards/search.json"
+kibana_dashboard_path: "../files/dashboards/dashboard.json"
+kibana_visualization_path: "../files/dashboards/visualization.json"
+kibana_search_path: "../files/dashboards/search.json"
 
-kibana_dashboard: "{{ lookup('file', '../files/dashboards/dashboard.json') | from_json }}"
-kibana_visualization: "{{ lookup('file', '../files/dashboards/visualization.json') | from_json }}"
-kibana_search: "{{ lookup('file', '../files/dashboards/search.json') | from_json }}"
 
 kibana_index_pattern: "oio-*"
 kibana_time_filter: "@timestamp"

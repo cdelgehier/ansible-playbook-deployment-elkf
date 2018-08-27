@@ -1,0 +1,32 @@
+---
+
+- name: Load kibana dashboard and visualization
+  become: true
+  hosts: elkservers
+  tasks:
+    - name: Check if Elasticseach is Startup
+      uri:
+        url: "http://localhost:9200"
+        method: GET
+        user: "{{ kibana_user }}"
+        password: "{{ kibana_password }}"
+        force_basic_auth: yes
+        body_format: json
+        headers:
+          Content-Type: "application/json; charset=utf-8"
+          Kbn-xsrf: kibana
+
+    - name: Check if Kibana is Startup
+      uri:
+        url: "http://{{kibana_server_ip}}:5601"
+        method: GET
+        user: "{{ kibana_user }}"
+        password: "{{ kibana_password }}"
+        force_basic_auth: yes
+        body_format: json
+        headers:
+          Content-Type: "application/json; charset=utf-8"
+          Kbn-xsrf: kibana
+
+
+...
