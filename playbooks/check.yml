@@ -10,7 +10,7 @@
         method: GET
         user: "{{ kibana_user }}"
         password: "{{ kibana_password }}"
-        force_basic_auth: yes
+        force_basic_auth: true
         body_format: json
         headers:
           Content-Type: "application/json; charset=utf-8"
@@ -22,7 +22,7 @@
         method: GET
         user: "{{ kibana_user }}"
         password: "{{ kibana_password }}"
-        force_basic_auth: yes
+        force_basic_auth: true
         body_format: json
         headers:
           Content-Type: "application/json; charset=utf-8"
