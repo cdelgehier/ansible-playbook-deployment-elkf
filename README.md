@@ -1,13 +1,13 @@
 Ansible playbook for ELK and Filebeat
 ------
 
-[![Build Status](https://travis-ci.com/papebadiane/ansible-playbook-deployment-elkf.svg?branch=master)](https://travis-ci.com/papebadiane/ansible-playbook-deployment-elkf)
+[![Build Status](https://travis-ci.com/open-io/ansible-playbook-deployment-elkf.svg?branch=master)](https://travis-ci.com/open-io/ansible-playbook-deployment-elkf)
 
 ## Description
 
 This playbook has multiple roles, it permit:
 
-* Install and run [ELK physicaly](https://www.elastic.co/elk-stack) or  [docker ELK](https://github.com/papebadiane/docker-elkf)
+* Install and run [ELK physicaly](https://www.elastic.co/elk-stack) or  [docker ELK](https://github.com/open-io/oio-elk)
 * Install and run Filebeat
 * Load kibana's dashboard and visualizations
 
@@ -42,9 +42,9 @@ sudo yum install -y ansible
 * You will need to  install the roles dependencies
 
 ```
-export OPENIO_LOGANALYZER_RELEASE="0.1.5"
+export OPENIO_LOGANALYZER_RELEASE="0.1.6"
 mkdir -p ~/openio-loganalyzer && cd ~/openio-loganalyzer
-curl -sL "https://github.com/papebadiane/ansible-playbook-deployment-elkf/$OPENIO_LOGANALYZER_RELEASE.tar.gz" | tar xz --strip-components=1
+curl -sL "https://github.com/open-io/ansible-playbook-deployment-elkf/$OPENIO_LOGANALYZER_RELEASE.tar.gz" | tar xz --strip-components=1
 ansible-galaxy install -r requirements.yml --force
 
 ```

@@ -5,12 +5,12 @@
   version: 1.3.0
 - src: https://github.com/geerlingguy/ansible-role-docker
   version: 2.1.0
-- src: https://github.com/papebadiane/ansible-role-kibana-import-dashboard-and-visualization
+- src: https://github.com/open-io/ansible-role-kibana-import-dashboard-and-visualization
   version: 0.1.6
 - src: https://github.com/elastic/ansible-elasticsearch
   version: 6.3.1
-- src: https://github.com/papebadiane/ansible-role-kibana
+- src: https://github.com/open-io/ansible-role-kibana
   version: master
-- src: https://github.com/papebadiane/ansible-role-logstash
+- src: https://github.com/open-io/ansible-role-logstash
   version: master
 ...
